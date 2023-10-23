@@ -1,0 +1,270 @@
+﻿@{
+    ViewBag.Title = "Excel File to Upload";
+}
+
+@model UploadExcel_Mamoun.Models.UploadViewModel
+
+<link href="~/Content/css/styes.css" rel="stylesheet">
+
+
+<style>
+
+
+    .containerBox {
+        display: flex;
+        justify-content: center; /* Centers child elements horizontally */
+        align-items: center; /* Centers child elements vertically */
+        height: 100%; /* Takes full height of its parent */
+    }
+
+
+    .card {
+        border-radius: 10px;
+        width: 600px;
+        height: 260px;
+        background-color: #ffffff;
+        padding: 10px 30px 40px;
+    }
+
+
+
+    /****** CODE ******/
+
+    .file-upload {
+        display: block;
+        text-align: center;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 12px;
+    }
+
+        .file-upload .file-select {
+            display: block;
+            border: 2px solid #dce4ec;
+            color: #34495e;
+            cursor: pointer;
+            height: 40px;
+            line-height: 40px;
+            text-align: left;
+            background: #FFFFFF;
+            overflow: hidden;
+            position: relative;
+        }
+
+            .file-upload .file-select .file-select-button {
+                background: #dce4ec;
+                padding: 0 10px;
+                display: inline-block;
+                height: 40px;
+                line-height: 40px;
+            }
+
+            .file-upload .file-select .file-select-name {
+                line-height: 40px;
+                display: inline-block;
+                padding: 0 10px;
+            }
+
+            .file-upload .file-select:hover {
+                border-color: #34495e;
+                transition: all .2s ease-in-out;
+                -moz-transition: all .2s ease-in-out;
+                -webkit-transition: all .2s ease-in-out;
+                -o-transition: all .2s ease-in-out;
+            }
+
+                .file-upload .file-select:hover .file-select-button {
+                    background: #34495e;
+                    color: #FFFFFF;
+                    transition: all .2s ease-in-out;
+                    -moz-transition: all .2s ease-in-out;
+                    -webkit-transition: all .2s ease-in-out;
+                    -o-transition: all .2s ease-in-out;
+                }
+
+        .file-upload.active .file-select {
+            border-color: #3fa46a;
+            transition: all .2s ease-in-out;
+            -moz-transition: all .2s ease-in-out;
+            -webkit-transition: all .2s ease-in-out;
+            -o-transition: all .2s ease-in-out;
+        }
+
+            .file-upload.active .file-select .file-select-button {
+                background: #3fa46a;
+                color: #FFFFFF;
+                transition: all .2s ease-in-out;
+                -moz-transition: all .2s ease-in-out;
+                -webkit-transition: all .2s ease-in-out;
+                -o-transition: all .2s ease-in-out;
+            }
+
+        .file-upload .file-select input[type=file] {
+            z-index: 100;
+            cursor: pointer;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+
+        .file-upload .file-select.file-select-disabled {
+            opacity: 0.65;
+        }
+
+            .file-upload .file-select.file-select-disabled:hover {
+                cursor: default;
+                display: block;
+                border: 2px solid #dce4ec;
+                color: #34495e;
+                cursor: pointer;
+                height: 40px;
+                line-height: 40px;
+                margin-top: 5px;
+                text-align: left;
+                background: #FFFFFF;
+                overflow: hidden;
+                position: relative;
+            }
+
+                .file-upload .file-select.file-select-disabled:hover .file-select-button {
+                    background: #dce4ec;
+                    color: #666666;
+                    padding: 0 10px;
+                    display: inline-block;
+                    height: 40px;
+                    line-height: 40px;
+                }
+
+                .file-upload .file-select.file-select-disabled:hover .file-select-name {
+                    line-height: 40px;
+                    display: inline-block;
+                    padding: 0 10px;
+                }
+</style>
+<div class="jumbotron">
+    <h1>Excel File to Upload</h1>
+    <p class="lead">below form you can upload Excel file to Ms SQL DataBase</p>
+</div>
+
+<div class="row">
+
+
+
+
+
+    <div class="col-md-12">
+        <div class="containerBox">
+            <div class="card">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-info">
+                        @TempData["Message"]
+                    </div>}
+
+                @Html.Partial("_UploadPartial")
+
+
+
+            </div>
+
+
+
+        </div>
+
+        <br />
+        @if (Model != null && Model.UploadedData != null && Model.UploadedData.Count > 0)
+        {
+            <div class="alert alert-success">
+                Successfully uploaded @Model.UploadedData.Count records.
+            </div>
+
+            <h3>Insights</h3>
+            <div class="row">
+                <div class="col-2">
+                    <div class="alert alert-success">
+                        <p><strong>Total Basic Salary:</strong> @Model.TotalBasicSal</p>
+                    </div>
+                    <div class="alert alert-success">
+                        <p><strong>Total Salary:</strong> @Model.TotalSal</p>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="alert alert-success">
+                        <p><strong>Max Basic Salary:</strong> @Model.MaxBasicSal</p>
+                    </div>
+                    <div class="alert alert-success">
+                        <p><strong>Max Salary:</strong> @Model.MaxSal</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <canvas id="myChart" width="400" height="200"></canvas>
+
+
+        }
+    </div>
+
+</div>
+
+<script src="~/Scripts/jquery.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    $('#chooseFile').bind('change', function () {
+        var filename = $("#chooseFile").val();
+        if (/^\s*$/.test(filename)) {
+            $(".file-upload").removeClass('active');
+            $("#noFile").text("No file chosen...");
+            $("#uploadButton").hide();
+        }
+        else {
+            $(".file-upload").addClass('active');
+            $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+            $("#uploadButton").show();
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+var maxBasicSal = parseFloat('@(Model?.MaxBasicSal ?? 0)');
+var maxSal = parseFloat('@(Model?.MaxSal ?? 0)');
+
+        console.log('MaxBasicSal:', maxBasicSal);
+console.log('MaxSal:', maxSal);
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Max Basic Salary', 'Max Salary'],
+            datasets: [{
+                label: 'Salary Data',
+
+                data: [maxBasicSal, maxSal],
+               // data: [193785,228102],
+                backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+});
+</script>
+
+
+
+
+
+

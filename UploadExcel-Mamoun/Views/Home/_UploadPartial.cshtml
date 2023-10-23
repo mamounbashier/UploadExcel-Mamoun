@@ -1,0 +1,19 @@
+﻿@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="file-upload">
+        <div class="file-select">
+            <div class="file-select-button" id="fileName">Choose File</div>
+            <div class="file-select-name" id="noFile">No file chosen...</div>
+            <input type="file" accept=".xls, .xlsx" name="chooseFile" id="chooseFile">
+        </div>
+        <br />
+        <button type="submit" class="btn-outline-success btn btn-lg" id="uploadButton" style="display: none;">Upload</button>
+    </div>
+}
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">
+        @ViewBag.Message
+    </div>
+}
